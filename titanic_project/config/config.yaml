@@ -1,0 +1,35 @@
+# Titanic ML Project Configuration
+# random_state 고정으로 재현 가능한 결과 보장
+
+random_state: 42
+n_folds: 5
+
+# Data paths
+paths:
+  raw_train: data/raw/train.csv
+  raw_test: data/raw/test.csv
+  raw_submission_template: data/raw/gender_submission.csv
+  processed_data: data/processed/processed_data.csv
+  submission: data/submission/submission.csv
+  model: models/model.pkl
+
+# Preprocessing
+preprocessing:
+  age_imputation: median_by_group  # Pclass, Sex 그룹 기반 중앙값
+  embarked_imputation: mode
+  cabin_strategy: drop  # 결측률 높아 drop (정보 활용 X)
+  fare_imputation: median
+
+# Feature Engineering
+feature_engineering:
+  family_size: true  # SibSp + Parch + 1
+  is_alone: true
+  title_extraction: true
+  fare_binning: true
+  fare_bins: 5
+
+# Models for comparison
+models:
+  - LogisticRegression
+  - RandomForest
+  - XGBoost
